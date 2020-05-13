@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 配置实体类和表的关系 -->
+	<class name="com.sec.entity.DeptInfo" table="dept">
+	<!-- 配置实体类属性和表字段的关系 -->
+	<!-- 主键字段 -->
+	<id name="deptId">
+	<column name="deptid"></column>
+	<generator class="native"></generator>
+	</id>
+	<!-- 一般字段 -->
+	<property name="deptName" column="deptname" type="java.lang.String"></property>
+	<property name="remark" column="remark" type="java.lang.String"></property>
+	
+	<!-- 配置集合： 一的一端 -->
+	<set name="empinfos" table="emp" cascade="save-update" inverse="true" batch-size="2">
+	<!-- 配置外键字段 -->
+	<key>
+		<column name="deptid"></column>
+	</key>
+	<!-- 配置关联关系 一对多  class 写多的一方-->
+	<one-to-many class="com.sec.entity.EmpInfo"/>
+	</set>
+	</class>
+</hibernate-mapping>
